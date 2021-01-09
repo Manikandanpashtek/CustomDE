@@ -121,6 +121,8 @@ define([
         console.log('*** Schema ***', JSON.stringify(data['schema']));
         for (var x in data['schema']) {
           console.log('*** Iterate Schema ***', x);
+          var keyfield = data['schema'][x].key.split('.').pop();
+	      console.log('keyfields '+keyfield);
         }
     }
     
