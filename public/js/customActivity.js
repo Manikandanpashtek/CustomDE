@@ -119,6 +119,9 @@ define([
     
     function onRequestSchema(data){
         console.log('*** Schema ***', JSON.stringify(data['schema']));
+        for (var x in data['schema']) {
+          console.log('*** Iterate Schema ***', x);
+        }
     }
     
     function onGetTriggerEventDefinition(eventDefinitionModel){
