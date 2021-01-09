@@ -22,7 +22,7 @@ define([
     connection.on('requestedTokens', onGetTokens);
     connection.on('requestedEndpoints', onGetEndpoints);
     connection.on('requestedSchema', onRequestSchema);
-
+    connection.on('requestedTriggerEventDefinition', onGetTriggerEventDefinition);
     connection.on('clickedNext', onClickedNext);
     connection.on('clickedBack', onClickedBack);
     connection.on('gotoStep', onGotoStep);
@@ -119,6 +119,10 @@ define([
     
     function onRequestSchema(data){
         console.log('*** Schema ***', JSON.stringify(data['schema']));
+    }
+    
+    function onGetTriggerEventDefinition(eventDefinitionModel){
+        console.log('*** eventDefinitionModel ***', JSON.stringify(eventDefinitionModel));
     }
 
     function showStep(step, stepIndex) {
