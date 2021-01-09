@@ -21,6 +21,7 @@ define([
     connection.on('initActivity', initialize);
     connection.on('requestedTokens', onGetTokens);
     connection.on('requestedEndpoints', onGetEndpoints);
+    connection.on('requestedSchema', onRequestSchema);
 
     connection.on('clickedNext', onClickedNext);
     connection.on('clickedBack', onClickedBack);
@@ -32,7 +33,7 @@ define([
 
         connection.trigger('requestTokens');
         connection.trigger('requestEndpoints');
-
+        connection.trigger('requestSchema');
         // Disable the next button if a value isn't selected
         $('#select1').change(function() {
             var message = getMessage();
@@ -114,6 +115,10 @@ define([
     function onGotoStep (step) {
         showStep(step);
         connection.trigger('ready');
+    }
+    
+    function onRequestSchema(data){
+        console.log('*** Schema ***', JSON.stringify(data['schema']));
     }
 
     function showStep(step, stepIndex) {
