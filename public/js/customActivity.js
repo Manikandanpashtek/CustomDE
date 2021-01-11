@@ -34,6 +34,7 @@ define([
         connection.trigger('requestTokens');
         connection.trigger('requestEndpoints');
         connection.trigger('requestSchema');
+	connection.trigger('updateSteps', steps);
         // Disable the next button if a value isn't selected
         $('#select1').change(function() {
             var message = getMessage();
