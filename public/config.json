@@ -29,7 +29,7 @@
                 }
 	   ],
           "outArguments": [],
-          "url": "https://journeyapplication.herokuapp.com//journeybuilder/execute",
+          "url": "https://journeyapplication.herokuapp.com/journeybuilder/execute",
            "verb": "POST",
             "body": "",
             "header": "",
