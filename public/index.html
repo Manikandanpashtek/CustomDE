@@ -1,26 +1,21 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Custom Journey Builder Activity</title>
-
-    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/require.js"></script>
     <script type="text/javascript">
         (function() {
             var config = {
                 baseUrl: 'js'
             };
-
             var dependencies = [
                 'customActivity'
             ];
-
             require(config, dependencies);
         })();
     </script>
-
     <!--Styles-->
     <style type="text/css">
         body {
@@ -34,11 +29,9 @@
             display: block;
         }
     </style>
-
 </head>
 <body>
 <div id="step1" class="step">
-
     Select your SMS message:
     <select id="select1">
         <option value="">Select an option</option>
@@ -47,7 +40,6 @@
         <option value="thirdMessage">Third SMS</option>
         <option value="unknownMessage">Unknown SMS</option>
     </select>
-
     <button id="toggleLastStep">Toggle Last Step</button>
 </div>
 <div id="step2" class="step">
