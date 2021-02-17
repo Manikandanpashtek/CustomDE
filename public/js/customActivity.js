@@ -21,8 +21,7 @@ define([
     connection.on('initActivity', initialize);
     connection.on('requestedTokens', onGetTokens);
     connection.on('requestedEndpoints', onGetEndpoints);
-    connection.on('requestedSchema', onRequestSchema);
-    connection.on('requestedTriggerEventDefinition', onGetTriggerEventDefinition);
+
     connection.on('clickedNext', onClickedNext);
     connection.on('clickedBack', onClickedBack);
     connection.on('gotoStep', onGotoStep);
@@ -33,8 +32,7 @@ define([
 
         connection.trigger('requestTokens');
         connection.trigger('requestEndpoints');
-        connection.trigger('requestSchema');
-	connection.trigger('updateSteps', steps);
+
         // Disable the next button if a value isn't selected
         $('#select1').change(function() {
             var message = getMessage();
@@ -90,12 +88,12 @@ define([
 
     function onGetTokens (tokens) {
         // Response: tokens = { token: <legacy token>, fuel2token: <fuel api token> }
-         console.log(tokens);
+        // console.log(tokens);
     }
 
     function onGetEndpoints (endpoints) {
         // Response: endpoints = { restHost: <url> } i.e. "rest.s1.qa1.exacttarget.com"
-         console.log(endpoints);
+        // console.log(endpoints);
     }
 
     function onClickedNext () {
@@ -116,19 +114,6 @@ define([
     function onGotoStep (step) {
         showStep(step);
         connection.trigger('ready');
-    }
-    
-    function onRequestSchema(data){
-        console.log('*** Schema ***', JSON.stringify(data['schema']));
-        for (var x in data['schema']) {
-          console.log('*** Iterate Schema ***', x);
-          var keyfield = data['schema'][x].key.split('.').pop();
-	      console.log('keyfields '+keyfield);
-        }
-    }
-    
-    function onGetTriggerEventDefinition(eventDefinitionModel){
-        console.log('*** eventDefinitionModel ***', JSON.stringify(eventDefinitionModel));
     }
 
     function showStep(step, stepIndex) {
