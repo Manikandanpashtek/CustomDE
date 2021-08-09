@@ -46,6 +46,7 @@ define([
     }
     function initialize (data) {
         if (data) {
+		console.log(data);
             payload = data;
         }
         var message;
@@ -59,6 +60,7 @@ define([
         $.each(inArguments, function(index, inArgument) {
             $.each(inArgument, function(key, val) {
                 if (key === 'message') {
+			console.log(message);
                     message = val;
                 }
             });
