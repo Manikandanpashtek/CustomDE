@@ -85,7 +85,7 @@ define([
     }
     function onGetEndpoints (endpoints) {
         // Response: endpoints = { restHost: <url> } i.e. "rest.s1.qa1.exacttarget.com"
-        this.endpoints = endpoints ;
+        
          console.log("endpoints-",endpoints);
     }
     function onClickedNext () {
