@@ -7,6 +7,7 @@ define([
     var connection = new Postmonger.Session();
     var payload = {};
     var lastStepEnabled = false;
+   
     var steps = [ // initialize to the same value as what's set in config.json for consistency
         { "label": "Step 1", "key": "step1" },
         { "label": "Step 2", "key": "step2" },
@@ -14,6 +15,7 @@ define([
         { "label": "Step 4", "key": "step4", "active": false }
     ];
     var currentStep = steps[0].key;
+
     $(window).ready(onRender);
     connection.on('initActivity', initialize);
     connection.on('requestedTokens', onGetTokens);
@@ -78,10 +80,12 @@ define([
     }
     function onGetTokens (tokens) {
         // Response: tokens = { token: <legacy token>, fuel2token: <fuel api token> }
+        
          console.log(tokens);
     }
     function onGetEndpoints (endpoints) {
         // Response: endpoints = { restHost: <url> } i.e. "rest.s1.qa1.exacttarget.com"
+        this.endpoints = endpoints ;
          console.log("endpoints-",endpoints);
     }
     function onClickedNext () {
