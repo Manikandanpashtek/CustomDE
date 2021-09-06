@@ -117,3 +117,95 @@ exports.validate = function (req, res) {
     logData(req);
     res.send(200, 'Validate');
 };
+
+exports.subjectData = async ((req, res) => {
+    let account_id = await this.getMemberID(req.query.token, req.query.endpoint);
+  
+    let curr_user = await this.getUsername(
+      req.query.token,
+      req.query.endpoint,
+      account_id
+    );
+    console.log("subject Data curr_user.userName >>>> " + curr_user.userName);
+  
+    let sparkpostAccId = await this.getSparkpostAccId(req, curr_user.userName);
+    console.log("subject Data sparkpostAccId >>>> " + sparkpostAccId);
+  
+    let endpoint = 
+        process.env.sparkpostUrl +
+        "inbox/campaigns" +
+        "?" + qs.stringify( { qd: 'daysBack:60' }) + 
+        "&" + qs.stringify( { childAccountId: sparkpostAccId }) + 
+        "&" + qs.stringify( { partnerAccountId: req.session.sfmcMemberId }) + 
+        "&" + qs.stringify( { subject:req.query.subject} ) +
+        "&" + qs.stringify( { Authorization: process.env.sparkpostAuthorization});
+    console.log("endpoint >>>> " + endpoint);
+    var configs = {
+      method: "GET",
+      url: endpoint,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    if (sparkpostAccId) {
+      axios(configs)
+        .then(function (response) {
+          if (response.data) {
+            let resp_data = {
+              subject: response.data[0],
+              acc_id: sparkpostAccId,
+            };
+            res.status(200).send(resp_data);
+          } else {
+            let emptyList;
+            res.status(200).send(emptyList);
+          }
+        })
+        .catch(function (error) {
+          res
+            .status(500)
+            .send(
+              "Something went wrong for retrieving subjects from sparkpost API!!!" +
+                error
+            );
+          console.log("Retrieving all rows " + error);
+        });
+    } else {
+      let resp_data = {
+        subject: "",
+        acc_id: sparkpostAccId,
+      };
+      console.log("Username is not available on Sparkpost API...");
+      res.status(300).send(resp_data);
+    }
+  });
+
+  exports.getUsername = (accessToken, tssd, userObj) =>
+  new Promise((resolve, reject) => {
+    let endpoint = `${tssd}platform/v1/accounts/${userObj.organization.id}/users`;
+    console.log("get UserName endpoint >>>> " + endpoint);
+    var configs = {
+      method: "GET",
+      url: endpoint,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+
+    axios(configs)
+      .then(function (response) {
+        if (response.data) {
+          for (let x in response.data.items) {
+            if (userObj.user.id == response.data.items[x].id) {
+              resolve(response.data.items[x]);
+            }
+          }
+          resolve(response.data);
+        }
+      })
+      .catch(function (error) {
+        console.log("get UserName " + error);
+        return reject(error);
+      });
+  });

@@ -1,189 +1,97 @@
-define([
-    'postmonger'
-], function(
-    Postmonger
-) {
-    'use strict';
-    var connection = new Postmonger.Session();
-    var payload = {};
-    var lastStepEnabled = false;
-   
-    var steps = [ // initialize to the same value as what's set in config.json for consistency
-        { "label": "Step 1", "key": "step1" },
-        { "label": "Step 2", "key": "step2" },
-        { "label": "Step 3", "key": "step3" },
-        { "label": "Step 4", "key": "step4", "active": false }
-    ];
-    var currentStep = steps[0].key;
-
+define(["postmonger"]),function (postmonger) {
+    "use strict";
+    var connection = new postmonger.session();
+    let authToken;
+    let restEndpoint;
+    let emailsubject ="";
+    let subjectData;
     $(window).ready(onRender);
-    connection.on('initActivity', initialize);
-    connection.on('requestedTokens', onGetTokens);
-    connection.on('requestedEndpoints', onGetEndpoints);
-    connection.on('requestedSchema', onRequestSchema);
-    connection.on('requestedTriggerEventDefinition', onGetTriggerEventDefinition);
-    connection.on('clickedNext', onClickedNext);
-    connection.on('clickedBack', onClickedBack);
-    connection.on('gotoStep', onGotoStep);
-    function onRender() {
-        // JB will respond the first time 'ready' is called with 'initActivity'
-        connection.trigger('ready');
-        connection.trigger('requestTokens');
-        connection.trigger('requestEndpoints');
-        connection.trigger('requestSchema');
-	connection.trigger('updateSteps', steps);
-        // Disable the next button if a value isn't selected
-        $('#select1').change(function() {
-            var message = getMessage();
-            connection.trigger('updateButton', { button: 'next', enabled: Boolean(message) });
-            $('#message').html(message);
-        });
-        // Toggle step 4 active/inactive
-        // If inactive, wizard hides it and skips over it during navigation
-        $('#toggleLastStep').click(function() {
-            lastStepEnabled = !lastStepEnabled; // toggle status
-            steps[3].active = !steps[3].active; // toggle active
-            connection.trigger('updateSteps', steps);
-        });
+    connection.on("initActivity",initialize);
+    connection.on("requestedTokens",onGetTokens);
+    connection.on("requestedEndpoints",onGetEndpoints);
+     
+    function onRender(){
+        connection.trigger("ready");
+        connection.trigger("requestTokens");
+        connection.trigger("requestInteraction");
+        connection.trigger("requestEndpoints");  
     }
-    function initialize (data) {
-        if (data) {
-		console.log(data);
-            payload = data;
+
+    function initialize(data) {
+        $('#step1').hide();
+        $('#step2').show();
+        console.log('initilize called::'+data.key+"\n"+JSON.stringify(data));
+        activityKey = data.key
+        connection.on("requestedInteraction",onGetIteraction);
+    }
+    function onGetIteraction(interaction){
+        console.log('onGetIteraction called::'+JSON.stringify(interaction));
+        let interactionActivityIndex = -1;
+        for (let x in interaction.activites){
+            if(interaction.activites[x].key == activityKey) {
+                interactionActivityIndex = x-1;
+                break
+            }
         }
-        var message;
-        var hasInArguments = Boolean(
-            payload['arguments'] &&
-            payload['arguments'].execute &&
-            payload['arguments'].execute.inArguments &&
-            payload['arguments'].execute.inArguments.length > 0
-        );
-        var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
-        $.each(inArguments, function(index, inArgument) {
-            $.each(inArgument, function(key, val) {
-                if (key === 'message') {
-			console.log(message);
-                    message = val;
-                }
-            });
-        });
-        // If there is no message selected, disable the next button
-        if (!message) {
-            showStep(null, 1);
-            connection.trigger('updateButton', { button: 'next', enabled: false });
-            // If there is a message, skip to the summary step
-        } else {
-            $('#select1').find('option[value='+ message +']').attr('selected', 'selected');
-            $('#message').html(message);
-            showStep(null, 3);
+        if(interactionActivityIndex > - 1){
+            var emailInteraction = interaction.activites[interactionActivityIndex];
+            if(emailInteraction){
+                emailsubject = emailInteraction.configurationArguments.triggeredsend.emailsubject;
+            } else {
+                console.log("ERROR: Did not find email interaction in position:"+interactionActivityIndex);
+            }
+        }
+        console.log('emailsubject::'+ emailsubject);
+    }
+    function onGetTokens(tokens) {
+        console.log('onGetTokens func called::'+ tokens.fuel2token);
+        authToken =  tokens.fuel2token;
+        if(emailsubject){
+            getSubjectData();
+        }else{
+            console.log("no subject found for this activity");
         }
     }
-    function onGetTokens (tokens) {
-        // Response: tokens = { token: <legacy token>, fuel2token: <fuel api token> }
-        
-         console.log(tokens);
+
+    function getSubjectData(){
+        console.log('getsubjectdata::/subject/data.subject:'+emailsubject+',auth:'+authToken+',endpoint:'+restEndpoint);
+        fetch(
+            `/subject/data?subject=${emailsubject}&token=${authToken}&endpoint=${restEndpoint}`,
+            {
+                method:"GET",
+            }
+        )
+        .then((response) =>{
+            console.log('getsubjectdata::json::'+dataValue);
+            subjectData = dataValue.subject;
+            if(subjectData){
+                console.log('calling getoriginalData.acc_id:'+dataValue.acc_id);
+                getOriginalData(dataValue.acc_id);
+            }else{
+                console.log('originaldata not called');
+            }
+        })
+        .catch((error) => {
+            sourceDataList = [];
+            console.log("api subject running : ",error);
+        })
     }
-    function onGetEndpoints (endpoints) {
-        // Response: endpoints = { restHost: <url> } i.e. "rest.s1.qa1.exacttarget.com"
-        
-         console.log("endpoints-",endpoints);
-    }
-    function onClickedNext () {
-        if (
-            (currentStep.key === 'step3' && steps[3].active === false) ||
-            currentStep.key === 'step4'
-        ) {
-            save();
-        } else {
-            connection.trigger('nextStep');
-        }
-    }
-    function onClickedBack () {
-        connection.trigger('prevStep');
-    }
-    function onGotoStep (step) {
-        showStep(step);
-        connection.trigger('ready');
-    }
-    function onRequestSchema(data){
-        console.log('*** Schema ***', JSON.stringify(data['schema']));
-        for (var x in data['schema']) {
-          console.log('*** Iterate Schema ***', x);
-          var keyfield = data['schema'][x].key.split('.').pop();
-	      console.log('keyfields '+keyfield);
-        }
-    }
-    function onGetTriggerEventDefinition(eventDefinitionModel){
-        console.log('*** eventDefinitionModel ***', JSON.stringify(eventDefinitionModel));
-    }
-    function showStep(step, stepIndex) {
-        if (stepIndex && !step) {
-            step = steps[stepIndex-1];
-        }
-        currentStep = step;
-        $('.step').hide();
-        switch(currentStep.key) {
-            case 'step1':
-                $('#step1').show();
-                connection.trigger('updateButton', {
-                    button: 'next',
-                    enabled: Boolean(getMessage())
-                });
-                connection.trigger('updateButton', {
-                    button: 'back',
-                    visible: false
-                });
-                break;
-            case 'step2':
-                $('#step2').show();
-                connection.trigger('updateButton', {
-                    button: 'back',
-                    visible: true
-                });
-                connection.trigger('updateButton', {
-                    button: 'next',
-                    text: 'next',
-                    visible: true
-                });
-                break;
-            case 'step3':
-                $('#step3').show();
-                connection.trigger('updateButton', {
-                     button: 'back',
-                     visible: true
-                });
-                if (lastStepEnabled) {
-                    connection.trigger('updateButton', {
-                        button: 'next',
-                        text: 'next',
-                        visible: true
-                    });
-                } else {
-                    connection.trigger('updateButton', {
-                        button: 'next',
-                        text: 'done',
-                        visible: true
-                    });
-                }
-                break;
-            case 'step4':
-                $('#step4').show();
-                break;
-        }
-    }
-    function save() {
-        var name = $('#select1').find('option:selected').html();
-        var value = getMessage();
-        // 'payload' is initialized on 'initActivity' above.
-        // Journey Builder sends an initial payload with defaults
-        // set by this activity's config.json file.  Any property
-        // may be overridden as desired.
-        payload.name = name;
-        payload['arguments'].execute.inArguments = [{ "message": value }];
-        payload['metaData'].isConfigured = true;
-        connection.trigger('updateActivity', payload);
-    }
-    function getMessage() {
-        return $('#select1').find('option:selected').attr('value').trim();
-    }
-});
+    function getOriginalData(sparkpostUserId) {
+        //console.log('getOriginalData subjectData '+subjectData);
+        //console.log('authToken '+authToken);
+        let cam_Idenfier = subjectData.campaignIdentifier;
+    
+        fetch(`/source/data?acc_id=${sparkpostUserId}&header_val=${cam_Idenfier}`, {
+          method: "GET",
+        })
+          .then((response) => response.json())
+          .then((dataValue) => {
+            sourceDataList = dataValue.length == 0 ? [] : dataValue;
+            getDomainRows();
+          })
+          .catch((error) => {
+            sourceDataList = [];
+            console.log("api source runningHover : ", error);
+          });
+      }
+}
