@@ -2,6 +2,7 @@ console.log("hello world");
 define(["postmonger"], function (Postmonger) {
     "use strict";
     var connection = new Postmonger.Session();
+    let activityKey;
     let authToken;
     let restEndpoint;
     let emailsubject ="";
@@ -9,7 +10,7 @@ define(["postmonger"], function (Postmonger) {
     $(window).ready(onRender);
     connection.on("initActivity", initialize);
     connection.on("requestedTokens",onGetTokens);
-    connection.on("requestedEndpoints",onGetEndpoints);
+   
      
     function onRender(){
         connection.trigger("ready");
@@ -21,7 +22,7 @@ define(["postmonger"], function (Postmonger) {
         $('#step1').hide();
         $('#step2').show();
         console.log('initilize called::'+data.key+"\n"+JSON.stringify(data));
-        activityKey = data.key
+        activityKey = data.key;
         connection.on("requestedInteraction",onGetIteraction);
     }
     function onGetIteraction(interaction){
