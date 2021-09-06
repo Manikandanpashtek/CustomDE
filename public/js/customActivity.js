@@ -7,7 +7,7 @@ define(["postmonger"]),function (postmonger) {
     let emailsubject ="";
     let subjectData;
     $(window).ready(onRender);
-    connection.on("initActivity",initialize);
+    connection.on("initActivity", initialize);
     connection.on("requestedTokens",onGetTokens);
     connection.on("requestedEndpoints",onGetEndpoints);
      
