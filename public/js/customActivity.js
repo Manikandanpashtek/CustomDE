@@ -11,7 +11,7 @@ define(["postmonger"], function (Postmonger) {
     $(window).ready(onRender);
     connection.on("initActivity", initialize);
     connection.on("requestedTokens",onGetTokens);
-   
+    connection.on("requestedEndpoints", onGetEndpoints);
      
     function onRender(){
         connection.trigger("ready");
@@ -37,6 +37,12 @@ define(["postmonger"], function (Postmonger) {
         // }
     }
 
+    function onGetEndpoints(endpoints) {
+        // Response: endpoints = { restHost: <url> } i.e. "rest.s1.qa1.exacttarget.com"
+        restEndpoint = endpoints.fuelapiRestHost;
+        console.log(restEndpoint);
+      }
+    
     function getSubjectData(){
         console.log('getsubjectdata::auth:'+authToken+',endpoint:'+restEndpoint);
         fetch(
