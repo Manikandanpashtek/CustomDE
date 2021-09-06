@@ -57,6 +57,7 @@
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
     "redis": "^3.1.2",
+    "request": "^2.88.2",
     "serve-favicon": "^2.5.0",
     "shortid": "^2.2.13",
     "sizzle": "^2.3.5",
@@ -68,5 +69,5 @@
     "@types/node": "^10.17.56",
     "@types/qs": "^6.9.7",
     "@types/xml2js": "^0.4.7"
-}
+  }
 }
