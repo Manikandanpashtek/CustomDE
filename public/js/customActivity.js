@@ -14,7 +14,6 @@ define(["postmonger"]),function (postmonger) {
         connection.trigger("ready");
         connection.trigger("requestTokens");
         connection.trigger("requestInteraction");
-        connection.trigger("requestEndpoints");  
     }
 
     function initialize(data) {
