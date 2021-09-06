@@ -1,7 +1,7 @@
 console.log("hello world");
 define(["postmonger"], function (Postmonger) {
     "use strict";
-    var connection = new Postmonger.session();
+    var connection = new Postmonger.Session();
     let authToken;
     let restEndpoint;
     let emailsubject ="";
