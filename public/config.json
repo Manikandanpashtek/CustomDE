@@ -44,22 +44,22 @@
     "configurationArguments": {
       "applicationExtensionKey": "d2d94440-98c1-4f6c-841a-c38507429253",
       "save": {
-        "url": "https://workingcustomactivity.herokuapp.com/journeybuilder/save",
+        "url": "https://taskcustom.herokuapp.com/journeybuilder/save",
           "verb": "POST",
         "useJwt": true
        },
        "publish": {
-        "url": "https://workingcustomactivity.herokuapp.com/journeybuilder/publish",
+        "url": "https://taskcustom.herokuapp.com/journeybuilder/publish",
            "verb": "POST",
         "useJwt": true
        },
       "stop": {
-        "url": "https://workingcustomactivity.herokuapp.com/journeybuilder/stop",
+        "url": "https://taskcustom.herokuapp.com/journeybuilder/stop",
            "verb": "POST",
         "useJwt": true
       },
       "validate": {
-        "url": "https://workingcustomactivity.herokuapp.com/journeybuilder/validate",
+        "url": "https://taskcustom.herokuapp.com/journeybuilder/validate",
         "verb": "POST",
         "useJwt": true
       }
