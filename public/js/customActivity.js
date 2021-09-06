@@ -15,7 +15,7 @@ define(["postmonger"], function (Postmonger) {
     function onRender(){
         connection.trigger("ready");
         connection.trigger("requestTokens");
-     
+    
     }
 
     function initialize(data) {
@@ -23,7 +23,7 @@ define(["postmonger"], function (Postmonger) {
         $('#step2').show();
         console.log('initilize called::'+data.key+"\n"+JSON.stringify(data));
         activityKey = data.key;
-        connection.on("requestedInteraction",onGetIteraction);
+      
     }
   
     function onGetTokens(tokens) {
@@ -37,9 +37,9 @@ define(["postmonger"], function (Postmonger) {
     }
 
     function getSubjectData(){
-        console.log('getsubjectdata::/subject/data.subject:'+emailsubject+',auth:'+authToken+',endpoint:'+restEndpoint);
+        console.log('getsubjectdata::'+emailsubject+',auth:'+authToken+',endpoint:'+restEndpoint);
         fetch(
-            `/subject/data?subject=${emailsubject}&token=${authToken}&endpoint=${restEndpoint}`,
+            `/subject/data?&token=${authToken}&endpoint=${restEndpoint}`,
             {
                 method:"GET",
             }
