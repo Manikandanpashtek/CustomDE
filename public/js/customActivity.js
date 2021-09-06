@@ -1,3 +1,4 @@
+console.log("hello world");
 define(["postmonger"]),function (postmonger) {
     "use strict";
     var connection = new postmonger.session();
