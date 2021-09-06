@@ -29,7 +29,7 @@
                 }
 	   ],
           "outArguments": [],
-          "url": "https://workingcustomactivity.herokuapp.com/journeybuilder/execute",
+          "url": "https://taskcustom.herokuapp.com/journeybuilder/execute",
            "verb": "POST",
             "body": "",
             "header": "",
@@ -42,7 +42,7 @@
         }
     },
     "configurationArguments": {
-      "applicationExtensionKey": "6bf3357b-c002-4413-93c0-7939c1b2e99a",
+      "applicationExtensionKey": "d2d94440-98c1-4f6c-841a-c38507429253",
       "save": {
         "url": "https://workingcustomactivity.herokuapp.com/journeybuilder/save",
           "verb": "POST",
