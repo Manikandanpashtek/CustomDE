@@ -15,7 +15,7 @@ define(["postmonger"], function (Postmonger) {
     function onRender(){
         connection.trigger("ready");
         connection.trigger("requestTokens");
-        connection.trigger("requestInteraction");
+     
     }
 
     function initialize(data) {
@@ -25,33 +25,15 @@ define(["postmonger"], function (Postmonger) {
         activityKey = data.key;
         connection.on("requestedInteraction",onGetIteraction);
     }
-    function onGetIteraction(interaction){
-        console.log('onGetIteraction called::'+JSON.stringify(interaction));
-        let interactionActivityIndex = -1;
-        for (let x in interaction.activites){
-            if(interaction.activites[x].key == activityKey) {
-                interactionActivityIndex = x-1;
-                break
-            }
-        }
-        if(interactionActivityIndex > - 1){
-            var emailInteraction = interaction.activites[interactionActivityIndex];
-            if(emailInteraction){
-                emailSubject = emailInteraction.configurationArguments.triggeredSend.emailSubject;
-            } else {
-                console.log("ERROR: Did not find email interaction in position:"+interactionActivityIndex);
-            }
-        }
-        console.log('emailsubject::'+ emailsubject);
-    }
+  
     function onGetTokens(tokens) {
         console.log('onGetTokens func called::'+ tokens.fuel2token);
         authToken =  tokens.fuel2token;
-        if(emailsubject){
+        // if(emailsubject){
             getSubjectData();
-        }else{
-            console.log("no subject found for this activity");
-        }
+        // }else{
+        //     console.log("no subject found for this activity");
+        // }
     }
 
     function getSubjectData(){
