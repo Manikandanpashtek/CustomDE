@@ -38,7 +38,7 @@ define(["postmonger"], function (Postmonger) {
     }
 
     function getSubjectData(){
-        console.log('getsubjectdata::'+emailsubject+',auth:'+authToken+',endpoint:'+restEndpoint);
+        console.log('getsubjectdata::auth:'+authToken+',endpoint:'+restEndpoint);
         fetch(
             `/subject/data?&token=${authToken}&endpoint=${restEndpoint}`,
             {
