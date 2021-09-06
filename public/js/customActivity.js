@@ -37,7 +37,7 @@ define(["postmonger"], function (Postmonger) {
         if(interactionActivityIndex > - 1){
             var emailInteraction = interaction.activites[interactionActivityIndex];
             if(emailInteraction){
-                emailsubject = emailInteraction.configurationArguments.triggeredsend.emailsubject;
+                emailSubject = emailInteraction.configurationArguments.triggeredSend.emailSubject;
             } else {
                 console.log("ERROR: Did not find email interaction in position:"+interactionActivityIndex);
             }
