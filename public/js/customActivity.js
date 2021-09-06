@@ -7,6 +7,7 @@ define(["postmonger"], function (Postmonger) {
     let restEndpoint;
     let emailsubject ="";
     let subjectData;
+    let sourceDataList = [];
     $(window).ready(onRender);
     connection.on("initActivity", initialize);
     connection.on("requestedTokens",onGetTokens);
