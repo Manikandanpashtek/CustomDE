@@ -118,7 +118,7 @@ exports.validate = function (req, res) {
     res.send(200, 'Validate');
 };
 
-exports.subjectData = async ((req, res) => {
+exports.subjectData = async (req, res) => {
     let account_id = await this.getMemberID(req.query.token, req.query.endpoint);
   
     let curr_user = await this.getUsername(
@@ -178,7 +178,7 @@ exports.subjectData = async ((req, res) => {
       console.log("Username is not available on Sparkpost API...");
       res.status(300).send(resp_data);
     }
-  });
+  };
 
   exports.getUsername = (accessToken, tssd, userObj) =>
   new Promise((resolve, reject) => {
