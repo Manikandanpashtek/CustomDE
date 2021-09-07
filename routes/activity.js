@@ -119,6 +119,7 @@ exports.validate = function (req, res) {
 };
 
 exports.subjectData = async (req, res) => {
+  console.log("mkmk");
     let account_id = await this.getMemberID(req.query.token, req.query.endpoint);
   
     let curr_user = await this.getUsername(

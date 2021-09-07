@@ -58,6 +58,7 @@
     "morgan": "^1.10.0",
     "redis": "^3.1.2",
     "request": "^2.88.2",
+    "require": "^2.4.20",
     "serve-favicon": "^2.5.0",
     "shortid": "^2.2.13",
     "sizzle": "^2.3.5",
