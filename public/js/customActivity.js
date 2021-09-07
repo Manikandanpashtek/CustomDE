@@ -1,13 +1,13 @@
 console.log("hello world");
 define(["postmonger"], function (Postmonger) {
     "use strict";
-    var connection = new Postmonger.Session();
-    let activityKey;
-    let authToken;
-    let restEndpoint;
-    let emailsubject ="";
-    let subjectData;
-    let sourceDataList = [];
+  let activityKey;
+  let authToken;
+  let restEndpoint;
+  
+
+  let subjectData;
+  let sourceDataList = [];
     $(window).ready(onRender);
     connection.on("initActivity", initialize);
     connection.on("requestedTokens",onGetTokens);
@@ -46,7 +46,7 @@ define(["postmonger"], function (Postmonger) {
     function getSubjectData(){
         console.log('getsubjectdata::auth:'+authToken+',endpoint:'+restEndpoint);
         fetch(
-            `/subject/data?&token=${authToken}&endpoint=${restEndpoint}`,
+            `/subject/data?token=${authToken}&endpoint=${restEndpoint}`,
             {
                 method:"GET",
             }
