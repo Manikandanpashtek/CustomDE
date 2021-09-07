@@ -58,7 +58,7 @@ define(["postmonger"], function (Postmonger) {
             return response.json()
           })
           .then((dataValue) => {
-            console.log('getSubjectData::json::'+dataValue);
+            console.log('getSubjectData::json::'+JSON.stringify(dataValue));
             subjectData = dataValue.subject;
             if (subjectData) {
               console.log('calling getOriginalData. acct_id:' +dataValue.acc_id);

@@ -129,6 +129,7 @@ exports.subjectData = async (req, res) => {
       account_id
     );
     console.log("subject Data curr_user.userName >>>> " + curr_user.userName);
+    res.status(200).send(curr_user);
 }
     
 
