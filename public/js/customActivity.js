@@ -53,24 +53,27 @@ define(["postmonger"], function (Postmonger) {
                 method:"GET",
             }
         )
-        .then((response) =>{
-            console.log("mkmk");
-            let value = JSON.stringify(response);
-            console.log('getsubjectdata::json::'+value);
-            console.log("subject Data curr_user.userName >>>> " +value.curr_user.userName);
+        .then((response) => { 
+            console.log('getSubjectData::json the response')
+            return response.json()
+          })
+          .then((dataValue) => {
+            console.log('getSubjectData::json::'+dataValue);
             subjectData = dataValue.subject;
-            if(subjectData){
-                console.log('calling getoriginalData.acc_id:'+dataValue.acc_id);
-                getOriginalData(dataValue.acc_id);
-            }else{
-                console.log('originaldata not called');
+            if (subjectData) {
+              console.log('calling getOriginalData. acct_id:' +dataValue.acc_id);
+              getOriginalData(dataValue.acc_id);
+            } else {
+              console.log('calling findDifferences.');
+              sourceDataList = [];
+              findDifferences();
             }
-        })
-        .catch((error) => {
+          })
+          .catch((error) => {
             sourceDataList = [];
-            console.log("api subject running : ",error);
-        })
-    }
+            console.log("api subject runningHover : ", error);
+          });
+      }
 //     function getOriginalData(sparkpostUserId) {
 //         //console.log('getOriginalData subjectData '+subjectData);
 //         //console.log('authToken '+authToken);
