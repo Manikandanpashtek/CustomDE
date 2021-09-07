@@ -59,15 +59,16 @@ define(["postmonger"], function (Postmonger) {
           })
           .then((dataValue) => {
             console.log('getSubjectData::json::'+JSON.stringify(dataValue));
+            console.log("userName=",dataValue.userName);
             subjectData = dataValue.subject;
-            if (subjectData) {
-              console.log('calling getOriginalData. acct_id:' +dataValue.acc_id);
-              getOriginalData(dataValue.acc_id);
-            } else {
-              console.log('calling findDifferences.');
-              sourceDataList = [];
-              findDifferences();
-            }
+    //         if (subjectData) {
+    //           console.log('calling getOriginalData. acct_id:' +dataValue.acc_id);
+    //           getOriginalData(dataValue.acc_id);
+    //         } else {
+    //           console.log('calling findDifferences.');
+    //           sourceDataList = [];
+    //           findDifferences();
+    //         }
           })
           .catch((error) => {
             sourceDataList = [];
