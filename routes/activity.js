@@ -204,6 +204,7 @@ exports.subjectData = async (req, res) => {
             }
           }
           resolve(response.data);
+          console.log("mmmmmm",response.data)
         }
       })
       .catch(function (error) {
