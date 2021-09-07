@@ -54,6 +54,8 @@ define(["postmonger"], function (Postmonger) {
             }
         )
         .then((response) =>{
+            console.log("mkmk");
+
             console.log('getsubjectdata::json::'+response.dataValue);
             subjectData = dataValue.subject;
             if(subjectData){
