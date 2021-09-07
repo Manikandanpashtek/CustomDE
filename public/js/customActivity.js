@@ -54,7 +54,7 @@ define(["postmonger"], function (Postmonger) {
             }
         )
         .then((response) =>{
-            console.log('getsubjectdata::json::'+dataValue);
+            console.log('getsubjectdata::json::'+response.dataValue);
             subjectData = dataValue.subject;
             if(subjectData){
                 console.log('calling getoriginalData.acc_id:'+dataValue.acc_id);
@@ -68,22 +68,22 @@ define(["postmonger"], function (Postmonger) {
             console.log("api subject running : ",error);
         })
     }
-    function getOriginalData(sparkpostUserId) {
-        //console.log('getOriginalData subjectData '+subjectData);
-        //console.log('authToken '+authToken);
-        let cam_Idenfier = subjectData.campaignIdentifier;
+//     function getOriginalData(sparkpostUserId) {
+//         //console.log('getOriginalData subjectData '+subjectData);
+//         //console.log('authToken '+authToken);
+//         let cam_Idenfier = subjectData.campaignIdentifier;
     
-        fetch(`/source/data?acc_id=${sparkpostUserId}&header_val=${cam_Idenfier}`, {
-          method: "GET",
-        })
-          .then((response) => response.json())
-          .then((dataValue) => {
-            sourceDataList = dataValue.length == 0 ? [] : dataValue;
-            getDomainRows();
-          })
-          .catch((error) => {
-            sourceDataList = [];
-            console.log("api source runningHover : ", error);
-          });
-      }
-});
+//         fetch(`/source/data?acc_id=${sparkpostUserId}&header_val=${cam_Idenfier}`, {
+//           method: "GET",
+//         })
+//           .then((response) => response.json())
+//           .then((dataValue) => {
+//             sourceDataList = dataValue.length == 0 ? [] : dataValue;
+//             getDomainRows();
+//           })
+//           .catch((error) => {
+//             sourceDataList = [];
+//             console.log("api source runningHover : ", error);
+//           });
+//       }
+// });
