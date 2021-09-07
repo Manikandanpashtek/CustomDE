@@ -119,7 +119,7 @@ exports.validate = function (req, res) {
 };
 
 exports.subjectData = async (req, res) => {
-  debugger;
+  
   console.log("mkmk");
     let account_id = await this.getMemberID(req.query.token, req.query.endpoint);
   
@@ -208,6 +208,30 @@ exports.subjectData = async (req, res) => {
       })
       .catch(function (error) {
         console.log("get UserName " + error);
+        return reject(error);
+      });
+  });
+  exports.getMemberID = (accessToken, tssd) =>
+  new Promise((resolve, reject) => {
+    let endpoint = `${tssd}platform/v1/tokenContext`;
+    console.log("endpoint >>>> " + endpoint);
+    var configs = {
+      method: "GET",
+      url: endpoint,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+
+    axios(configs)
+      .then(function (response) {
+        if (response.data) {
+          resolve(response.data);
+        }
+      })
+      .catch(function (error) {
+        console.log("tokenContext " + error);
         return reject(error);
       });
   });
