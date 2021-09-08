@@ -135,7 +135,7 @@ exports.validate = function (req, res) {
 ];;
 
 exports.insertRowForDCHelper = function (req, res) {
- let  deExternalKey = "DF18Demo";
+ let  deExternalKey = "DF34_Demo";
  let sfmcDataExtensionApiUrl = "https://www.exacttargetapis.com/hub/v1/dataevents/key:" + deExternalKey + "/rowset";
   
  let headers = {
