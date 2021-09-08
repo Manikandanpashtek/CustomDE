@@ -123,22 +123,14 @@ exports.validate = function (req, res) {
   let jsonData = [
     {
         keys: {
-            id: shortid.generate()
+            id: 0
         },
         values: {
-            name: 'Sanjay - ' + shortid.generate(),
-            email: 'sanjay-' + shortid.generate() + '@sanjay.com',
+            name: 'Sanjay - ' ,
+            email: 'sanjay-' + '@sanjay.com',
         }
     },
-    {
-        keys: {
-            id: shortid.generate()
-        },
-        values: {
-            name: 'Savita - ' + shortid.generate(),
-            email: 'savita-' + shortid.generate() + '@savita.com'
-        }
-    }             
+                 
 ];;
 
 exports.insertRowForDCHelper = function (req, res) {
