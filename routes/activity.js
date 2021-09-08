@@ -134,11 +134,11 @@ exports.validate = function (req, res) {
 ];;
 
 exports.insertRowForDCHelper = function (req, res) {
-  deExternalKey = "DF18Demo";
-  sfmcDataExtensionApiUrl = "https://www.exacttargetapis.com/hub/v1/dataevents/key:" + this._deExternalKey + "/rowset";
+ let  deExternalKey = "DF18Demo";
+ let sfmcDataExtensionApiUrl = "https://www.exacttargetapis.com/hub/v1/dataevents/key:" + deExternalKey + "/rowset";
   
   
-  axios.post(self.sfmcDataExtensionApiUrl, jsonData, {"headers" : headers})
+  axios.post(sfmcDataExtensionApiUrl, jsonData, {"headers" : headers})
   .then((response) => {
       // success
       console.log("Successfully loaded sample data into Data Extension!");
