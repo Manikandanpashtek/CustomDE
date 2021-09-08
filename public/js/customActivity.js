@@ -47,11 +47,11 @@ define(["postmonger"], function (Postmonger) {
         }
         )
  }
-//     function onGetEndpoints(endpoints) {
-//         // Response: endpoints = { restHost: <url> } i.e. "rest.s1.qa1.exacttarget.com"
-//         restEndpoint = endpoints.fuelapiRestHost;
-//         console.log(restEndpoint);
-//       }
+    function onGetEndpoints(endpoints) {
+        // Response: endpoints = { restHost: <url> } i.e. "rest.s1.qa1.exacttarget.com"
+        restEndpoint = endpoints.fuelapiRestHost;
+        console.log(restEndpoint);
+      }
     
 //     function getSubjectData(){
 //         console.log('getsubjectdata::auth:'+authToken+',endpoint:'+restEndpoint);
