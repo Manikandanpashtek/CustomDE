@@ -141,6 +141,7 @@ exports.insertRowForDCHelper = function (req, res) {
  let headers = {
   'Content-Type': 'application/json;charset=UTF-8',
 };
+console.log("Successfully loaded sample data into Data Extension!");
 
   axios.post(sfmcDataExtensionApiUrl, jsonData, {"headers" : headers})
   .then((response) => {
