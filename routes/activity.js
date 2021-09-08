@@ -121,7 +121,7 @@ exports.validate = function (req, res) {
 
   DEexternalKeyDomainConfiguration =string;
   let jsonData = string;
-  
+
 exports.insertRowForDCHelper = function (req, res) {
   deExternalKey = "DF18Demo";
   sfmcDataExtensionApiUrl = "https://www.exacttargetapis.com/hub/v1/dataevents/key:" + this._deExternalKey + "/rowset";
@@ -214,3 +214,4 @@ exports.insertRowForDCHelper = function (req, res) {
 //         return reject(error);
 //       });
 //   });
+}
