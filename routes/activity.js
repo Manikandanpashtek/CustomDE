@@ -118,72 +118,99 @@ exports.validate = function (req, res) {
     res.send(200, 'Validate');
 };
 
-exports.subjectData = async (req, res) => {
+
+  DEexternalKeyDomainConfiguration =string;
+  let jsonData = string;
   
-  console.log("mkmk");
-    let account_id = await this.getMemberID(req.query.token, req.query.endpoint);
+exports.insertRowForDCHelper = function (req, res) {
+  deExternalKey = "DF18Demo";
+  sfmcDataExtensionApiUrl = "https://www.exacttargetapis.com/hub/v1/dataevents/key:" + this._deExternalKey + "/rowset";
   
-    let curr_user = await this.getUsername(
-      req.query.token,
-      req.query.endpoint,
-      account_id
-    );
-    console.log("subject Data curr_user.userName >>>> " + curr_user.userName);
-    res.status(200).send(curr_user);
-}
+  
+  axios.post(self.sfmcDataExtensionApiUrl, jsonData, {"headers" : headers})
+  .then((response) => {
+      // success
+      console.log("Successfully loaded sample data into Data Extension!");
+
+      resolve(
+      {
+          status: response.status,
+          statusText: response.statusText + "\n" + Utils.prettyPrintJson(JSON.stringify(response.data))
+      });
+  })
+  .catch((error) => {
+      // error
+      let errorMsg = "Error loading sample data. POST response from Marketing Cloud:";
+    
+    console.log(error);
+      reject(errorMsg);
+  });
+// exports.subjectData = async (req, res) => {
+  
+//   console.log("mkmk");
+//     let account_id = await this.getMemberID(req.query.token, req.query.endpoint);
+  
+//     let curr_user = await this.getUsername(
+//       req.query.token,
+//       req.query.endpoint,
+//       account_id
+//     );
+//     console.log("subject Data curr_user.userName >>>> " + curr_user.userName);
+//     res.status(200).send(curr_user);
+// }
     
 
-  exports.getUsername = (accessToken, tssd, userObj) =>
-  new Promise((resolve, reject) => {
-    let endpoint = `${tssd}platform/v1/accounts/${userObj.organization.id}/users`;
-    console.log("get UserName endpoint >>>> " + endpoint);
-    var configs = {
-      method: "GET",
-      url: endpoint,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-    };
+//   exports.getUsername = (accessToken, tssd, userObj) =>
+//   new Promise((resolve, reject) => {
+//     let endpoint = `${tssd}platform/v1/accounts/${userObj.organization.id}/users`;
+//     console.log("get UserName endpoint >>>> " + endpoint);
+//     var configs = {
+//       method: "GET",
+//       url: endpoint,
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${accessToken}`,
+//       },
+//     };
 
-    axios(configs)
-      .then(function (response) {
-        if (response.data) {
-          for (let x in response.data.items) {
-            if (userObj.user.id == response.data.items[x].id) {
-              resolve(response.data.items[x]);
-            }
-          }
-          resolve(response.data);
-          console.log("mmmmmm",response.data)
-        }
-      })
-      .catch(function (error) {
-        console.log("get UserName " + error);
-        return reject(error);
-      });
-  });
-  exports.getMemberID = (accessToken, tssd) =>
-  new Promise((resolve, reject) => {
-    let endpoint = `${tssd}platform/v1/tokenContext`;
-    console.log("endpoint >>>> " + endpoint);
-    var configs = {
-      method: "GET",
-      url: endpoint,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-    };
+//     axios(configs)
+//       .then(function (response) {
+//         if (response.data) {
+//           for (let x in response.data.items) {
+//             if (userObj.user.id == response.data.items[x].id) {
+//               resolve(response.data.items[x]);
+//             }
+//           }
+//           resolve(response.data);
+//           console.log("mmmmmm",response.data)
+//         }
+//       })
+//       .catch(function (error) {
+//         console.log("get UserName " + error);
+//         return reject(error);
+//       });
+//   });
+//   exports.getMemberID = (accessToken, tssd) =>
+//   new Promise((resolve, reject) => {
+//     let endpoint = `${tssd}platform/v1/tokenContext`;
+//     console.log("endpoint >>>> " + endpoint);
+//     var configs = {
+//       method: "GET",
+//       url: endpoint,
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${accessToken}`,
+//       },
+//     };
 
-    axios(configs)
-      .then(function (response) {
-        if (response.data) {
-          resolve(response.data);
-        }
-      })
-      .catch(function (error) {
-        console.log("tokenContext " + error);
-        return reject(error);
-      });
-  });
+//     axios(configs)
+//       .then(function (response) {
+//         if (response.data) {
+//           resolve(response.data);
+//         }
+//       })
+//       .catch(function (error) {
+//         console.log("tokenContext " + error);
+//         return reject(error);
+//       });
+//   });
