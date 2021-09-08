@@ -119,8 +119,27 @@ exports.validate = function (req, res) {
 };
 
 
-  DEexternalKeyDomainConfiguration =string;
-  let jsonData = string;
+  // DEexternalKeyDomainConfiguration =string;
+  let jsonData = [
+    {
+        keys: {
+            id: shortid.generate()
+        },
+        values: {
+            name: 'Sanjay - ' + shortid.generate(),
+            email: 'sanjay-' + shortid.generate() + '@sanjay.com',
+        }
+    },
+    {
+        keys: {
+            id: shortid.generate()
+        },
+        values: {
+            name: 'Savita - ' + shortid.generate(),
+            email: 'savita-' + shortid.generate() + '@savita.com'
+        }
+    }             
+];;
 
 exports.insertRowForDCHelper = function (req, res) {
   deExternalKey = "DF18Demo";
