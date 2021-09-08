@@ -158,7 +158,7 @@ exports.insertRowForDCHelper = function (req, res) {
       let errorMsg = "Error loading sample data. POST response from Marketing Cloud:";
     
     console.log(error);
-      reject(errorMsg);
+     
   });
 // exports.subjectData = async (req, res) => {
   
