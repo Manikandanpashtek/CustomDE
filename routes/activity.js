@@ -120,14 +120,15 @@ exports.validate = function (req, res) {
 
 
   // DEexternalKeyDomainConfiguration =string;
+  
   let jsonData = [
     {
         keys: {
-            id: 0
+            id: 1
         },
         values: {
-            name: 'Sanjay - ' ,
-            email: 'sanjay-' + '@sanjay.com',
+            name: 'hari - ' ,
+            email: 'hari-' + '@sanjay.com',
         }
     },
                  
@@ -137,7 +138,10 @@ exports.insertRowForDCHelper = function (req, res) {
  let  deExternalKey = "DF18Demo";
  let sfmcDataExtensionApiUrl = "https://www.exacttargetapis.com/hub/v1/dataevents/key:" + deExternalKey + "/rowset";
   
-  
+ let headers = {
+  'Content-Type': 'application/json;charset=UTF-8',
+};
+
   axios.post(sfmcDataExtensionApiUrl, jsonData, {"headers" : headers})
   .then((response) => {
       // success
