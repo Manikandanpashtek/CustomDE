@@ -145,7 +145,7 @@ exports.insertRowForDCHelper = function (req, res) {
              'Content-Type': 'application/json',
              'Authorization': 'Bearer ' + authToken
          };
-
+console.log("values=",sfmcDataExtensionApiUrl,headers);
          // POST to Marketing Cloud Data Extension endpoint to load sample data in the POST body
          axios.post(sfmcDataExtensionApiUrl, jsonData, {"headers" : headers})
          .then((response) => {
