@@ -140,9 +140,9 @@ exports.insertRowForDCHelper = function (req, res) {
     let authToken = req.query.token
  console.log("authToken=",authToken);
     
-     {
+     
          let headers = {
-             'Content-Type': 'application/json;charset=UTF-8',
+             'Content-Type': 'application/json',
              'Authorization': 'Bearer ' + authToken
          };
 
@@ -151,12 +151,6 @@ exports.insertRowForDCHelper = function (req, res) {
          .then((response) => {
              // success
              console.log("Successfully loaded sample data into Data Extension!");
-
-             resolve(
-             {
-                 status: response.status,
-                 statusText: response.statusText + "\n" + Utils.prettyPrintJson(JSON.stringify(response.data))
-             });
          })
          .catch((error) => {
              // error
@@ -169,7 +163,7 @@ exports.insertRowForDCHelper = function (req, res) {
 
              
          });
-     };
+     
     }
 
 // }
