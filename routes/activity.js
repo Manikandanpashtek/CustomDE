@@ -160,14 +160,14 @@ exports.insertRowForDCHelper = function (req, res) {
          })
          .catch((error) => {
              // error
-             console.log("error in creating");
+             console.log("error in creating",error);
             //  let errorMsg = "Error loading sample data. POST response from Marketing Cloud:";
             //  errorMsg += "\nMessage: " + error.message;
             //  errorMsg += "\nStatus: " + error.response ? error.response.status : "<None>";
             //  errorMsg += "\nResponse data: " + error.response.data ? Utils.prettyPrintJson(JSON.stringify(error.response.data)) : "<None>";
             //  Utils.logError(errorMsg);
 
-             reject(errorMsg);
+             
          });
      };
     }
