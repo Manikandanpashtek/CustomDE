@@ -12,7 +12,7 @@ exports.logExecuteData = [];
 function logData(req) {
     exports.logExecuteData.push({
         body: req.body,
-        // headers: req.headers,
+        headers: req.headers,
         trailers: req.trailers,
         method: req.method,
         url: req.url,
@@ -30,7 +30,7 @@ function logData(req) {
         originalUrl: req.originalUrl
     });
     console.log("body: " + util.inspect(req.body));
-    // console.log("headers: " + req.headers);
+    console.log("headers: " + req.headers);
     console.log("trailers: " + req.trailers);
     console.log("method: " + req.method);
     console.log("url: " + req.url);
@@ -134,29 +134,60 @@ exports.validate = function (req, res) {
                  
 ];;
 
-exports.insertRowForDCHelper = function (req, res) {
- let  deExternalKey = "DF34_Demo";
- let url = req.query.endpoint;
- console.log("url",url);
- let sfmcDataExtensionApiUrl = url+"data/v2/dataevents/key:"+deExternalKey+"/rowset";
-    let authToken = req.query.token
- console.log("authToken=",authToken);
+exports.insertRowForDCHelper = async (req, res) => {
+//  let  deExternalKey = "DF34_Demo";
+//  let url = req.query.endpoint;
+//  console.log("url",url);
+// //  let sfmcDataExtensionApiUrl = url+"data/v2/dataevents/key:"+deExternalKey+"/rowset";
+//     let authToken = req.query.token
+//  console.log("authToken=",authToken);
+ var configs = {
+    method: "GET",
+    url: `${req.query.endpoint}data/v1/customobjectdata/key/DF34_Demo/rowset`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${req.query.token}`,
+    },
+  };console.log("DomainRows Activity:",JSON.stringify(configs));
+  axios(configs)
+    .then(function (response) {
+      console.log("Response",JSON.stringify(response.data.items));
+      if (response.data) {
+        console.log("data=success");
+        // res.status(200).send(response.data);
+      } else {
+        onsole.log("data=failure");
+        // let emptyList;
+        // res.status(200).send(emptyList);
+      }
+      console.log("Response got!!")
+    })
+    .catch(function (error) {
+      res
+        .status(500)
+        .send(
+          "Something went wrong for retrieving rows from domain config!!!" +
+            error
+        );
+      console.log("Retrieving all rows " + error);
+    });
+};
     
      
-         let headers = {
-             'Content-Type': 'application/json',
-             'Authorization': 'Bearer ' + authToken
-         };
-console.log("values=",sfmcDataExtensionApiUrl,headers,jsonData);
-         // POST to Marketing Cloud Data Extension endpoint to load sample data in the POST body
-         axios.post(sfmcDataExtensionApiUrl, jsonData, {"headers" : headers})
-         .then((response) => {
-             // success
-             console.log("Successfully loaded sample data into Data Extension!");
-         })
-         .catch((error) => {
-             // error
-             console.log("error in creating",error);
+        //  let headers = {
+        //      'Content-Type': 'application/json',
+        //      'Authorization': 'Bearer ' + authToken
+        //  };
+// console.log("values=",sfmcDataExtensionApiUrl,headers,jsonData);
+//          // POST to Marketing Cloud Data Extension endpoint to load sample data in the POST body
+//          axios.post(sfmcDataExtensionApiUrl, jsonData, {"headers" : headers})
+//          .then((response) => {
+//              // success
+//              console.log("Successfully loaded sample data into Data Extension!");
+//          })
+//          .catch((error) => {
+//              // error
+//              console.log("error in creating",error);
             //  let errorMsg = "Error loading sample data. POST response from Marketing Cloud:";
             //  errorMsg += "\nMessage: " + error.message;
             //  errorMsg += "\nStatus: " + error.response ? error.response.status : "<None>";
@@ -164,9 +195,9 @@ console.log("values=",sfmcDataExtensionApiUrl,headers,jsonData);
             //  Utils.logError(errorMsg);
 
              
-         });
+    //      });
      
-    }
+    // }
 
 // }
 //  let headers = {
