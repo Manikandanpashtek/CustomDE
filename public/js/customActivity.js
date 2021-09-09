@@ -43,7 +43,7 @@ define(["postmonger"], function (Postmonger) {
     fetch(
         `/subject/data?token=${authToken}&endpoint=${restEndpoint}`,
         {
-            method:"post",
+            method:"GET",
         }
         )
  }
