@@ -137,7 +137,9 @@ exports.validate = function (req, res) {
 exports.insertRowForDCHelper = function (req, res) {
  let  deExternalKey = "DF34_Demo";
  let sfmcDataExtensionApiUrl = "https://www.exacttargetapis.com/hub/v1/dataevents/key:"+deExternalKey+"/rowset";
-    console.log("authToken=",authToken);
+    let authToken = req.query.token
+ console.log("authToken=",authToken);
+    
      {
          let headers = {
              'Content-Type': 'application/json;charset=UTF-8',
