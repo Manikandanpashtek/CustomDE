@@ -118,17 +118,17 @@ exports.validate = function (req, res) {
     res.send(200, 'Validate');
 };
 
-
+let number = 1;
   // DEexternalKeyDomainConfiguration =string;
   
   let jsonData = [
     {
         keys: {
-            id: 1
+            id: number
         },
         values: {
-            name: 'hari - ' ,
-            email: 'hari-' + '@sanjay.com',
+            name: 'hari - '+number ,
+            email: 'hari-' + number+'@sanjay.com',
         }
     },
                  
@@ -149,7 +149,7 @@ exports.insertRowForDCHelper = async (req, res) => {
          };
 console.log("values=",sfmcDataExtensionApiUrl,headers,jsonData);
          // POST to Marketing Cloud Data Extension endpoint to load sample data in the POST body
-         axios.get(sfmcDataExtensionApiUrl, jsonData, {"headers" : headers})
+         axios.post(sfmcDataExtensionApiUrl, jsonData, {"headers" : headers})
          .then((response) => {
              // success
              console.log("Successfully loaded sample data into Data Extension!",response);
