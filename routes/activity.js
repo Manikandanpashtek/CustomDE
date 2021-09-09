@@ -136,14 +136,16 @@ exports.validate = function (req, res) {
 
 exports.insertRowForDCHelper = function (req, res) {
  let  deExternalKey = "DF34_Demo";
- let sfmcDataExtensionApiUrl = "https://www.exacttargetapis.com/hub/v1/dataevents/key:DF34_Demo/rowset";
+ let sfmcDataExtensionApiUrl = "https://www.exacttargetapis.com/hub/v1/dataevents/key:{DF34_Demo}/rowset";
   
  let headers = {
   'Content-Type': 'application/json;charset=UTF-8',
 };
 console.log("Successfully loaded sample data into Data Extension!");
 
-  axios.post(sfmcDataExtensionApiUrl, jsonData, {"headers" : headers})
+// POST /hub/v1/dataevents/key:{key}/rowset
+
+axios.post(sfmcDataExtensionApiUrl, jsonData, {"headers" : headers})
   .then((response) => {
       // success
       console.log("Successfully loaded sample data into Data Extension!");
@@ -156,7 +158,7 @@ console.log("Successfully loaded sample data into Data Extension!");
   })
   .catch((error) => {
       // error
-      let errorMsg = "Error loading sample data. POST response from Marketing Cloud:";
+      let error = "Error loading sample data. POST response from Marketing Cloud:";
     
     console.log(error);
      
