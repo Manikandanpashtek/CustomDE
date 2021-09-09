@@ -138,7 +138,7 @@ exports.insertRowForDCHelper = function (req, res) {
  let  deExternalKey = "DF34_Demo";
  let url = req.query.endpoint;
  console.log("url",url);
- let sfmcDataExtensionApiUrl = url+"/data/v2/dataevents/key:"+deExternalKey+"/rowset";
+ let sfmcDataExtensionApiUrl = url+"data/v2/dataevents/key:"+deExternalKey+"/rowset";
     let authToken = req.query.token
  console.log("authToken=",authToken);
     
