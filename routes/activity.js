@@ -138,7 +138,7 @@ exports.insertRowForDCHelper = async (req, res) => {
  let  deExternalKey = "DF34_Demo";
  let url = req.query.endpoint;
  console.log("url",url);
- let sfmcDataExtensionApiUrl = url+"data/v1/dataevents/key:"+deExternalKey+"/rowset";
+ let sfmcDataExtensionApiUrl = url+"/hub/v1/dataevents/key:"+deExternalKey+"/rowset";
     let authToken = req.query.token
  console.log("authToken=",authToken);
     
@@ -147,10 +147,9 @@ exports.insertRowForDCHelper = async (req, res) => {
              'Content-Type': 'application/json',
              'Authorization': 'Bearer ' + authToken
          };
-
+         console.log("values=",sfmcDataExtensionApiUrl,headers,jsonData)
          // POST to Marketing Cloud Data Extension endpoint to load sample data in the POST body
          axios.post(sfmcDataExtensionApiUrl, jsonData, {"headers" : headers})
-         console.log("values=",sfmcDataExtensionApiUrl,headers,jsonData)
          .then((response) => {
              // success
              
