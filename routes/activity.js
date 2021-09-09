@@ -149,10 +149,10 @@ exports.insertRowForDCHelper = async (req, res) => {
          };
 console.log("values=",sfmcDataExtensionApiUrl,headers,jsonData);
          // POST to Marketing Cloud Data Extension endpoint to load sample data in the POST body
-         axios.post(sfmcDataExtensionApiUrl, jsonData, {"headers" : headers})
+         axios.get(sfmcDataExtensionApiUrl, jsonData, {"headers" : headers})
          .then((response) => {
              // success
-             console.log("Successfully loaded sample data into Data Extension!");
+             console.log("Successfully loaded sample data into Data Extension!",response);
          })
          .catch((error) => {
              // error
