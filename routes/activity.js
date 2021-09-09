@@ -136,7 +136,8 @@ exports.validate = function (req, res) {
 
 exports.insertRowForDCHelper = function (req, res) {
  let  deExternalKey = "DF34_Demo";
- let sfmcDataExtensionApiUrl = "https://www.exacttargetapis.com/hub/v1/dataevents/key:"+deExternalKey+"/rowset";
+ let url = req.query.endpoint;
+ let sfmcDataExtensionApiUrl = url+"/data/v1/dataevents/key:"+deExternalKey+"/rowset";
     let authToken = req.query.token
  console.log("authToken=",authToken);
     
