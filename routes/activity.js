@@ -12,7 +12,7 @@ exports.logExecuteData = [];
 function logData(req) {
     exports.logExecuteData.push({
         body: req.body,
-        headers: req.headers,
+        // headers: req.headers,
         trailers: req.trailers,
         method: req.method,
         url: req.url,
@@ -30,7 +30,7 @@ function logData(req) {
         originalUrl: req.originalUrl
     });
     console.log("body: " + util.inspect(req.body));
-    console.log("headers: " + req.headers);
+    // console.log("headers: " + req.headers);
     console.log("trailers: " + req.trailers);
     console.log("method: " + req.method);
     console.log("url: " + req.url);
@@ -137,32 +137,65 @@ exports.validate = function (req, res) {
 exports.insertRowForDCHelper = function (req, res) {
  let  deExternalKey = "DF34_Demo";
  let sfmcDataExtensionApiUrl = "https://www.exacttargetapis.com/hub/v1/dataevents/key:"+deExternalKey+"/rowset";
-  
- let headers = {
-  'Content-Type': 'application/json;charset=UTF-8',
-};
-console.log("Successfully loaded sample data into Data Extension!");
+    console.log("authToken=",authToken);
+     {
+         let headers = {
+             'Content-Type': 'application/json;charset=UTF-8',
+             'Authorization': 'Bearer ' + authToken
+         };
 
-// POST /hub/v1/dataevents/key:{key}/rowset
+         // POST to Marketing Cloud Data Extension endpoint to load sample data in the POST body
+         axios.post(sfmcDataExtensionApiUrl, jsonData, {"headers" : headers})
+         .then((response) => {
+             // success
+             console.log("Successfully loaded sample data into Data Extension!");
 
-axios.post(sfmcDataExtensionApiUrl, jsonData, {"headers" : headers})
-  .then((response) => {
-      // success
-      console.log("Successfully loaded sample data into Data Extension!");
+             resolve(
+             {
+                 status: response.status,
+                 statusText: response.statusText + "\n" + Utils.prettyPrintJson(JSON.stringify(response.data))
+             });
+         })
+         .catch((error) => {
+             // error
+             console.log("error in creating");
+            //  let errorMsg = "Error loading sample data. POST response from Marketing Cloud:";
+            //  errorMsg += "\nMessage: " + error.message;
+            //  errorMsg += "\nStatus: " + error.response ? error.response.status : "<None>";
+            //  errorMsg += "\nResponse data: " + error.response.data ? Utils.prettyPrintJson(JSON.stringify(error.response.data)) : "<None>";
+            //  Utils.logError(errorMsg);
 
-      resolve(
-      {
-          status: response.status,
-          statusText: response.statusText + "\n" + Utils.prettyPrintJson(JSON.stringify(response.data))
-      });
-  })
-  .catch((error) => {
-      // error
-    //   let error = "Error loading sample data. POST response from Marketing Cloud:";
+             reject(errorMsg);
+         });
+     };
+    }
+
+// }
+//  let headers = {
+//   'Content-Type': 'application/json;charset=UTF-8',
+// };
+// console.log("Successfully loaded sample data into Data Extension!");
+
+// // POST /hub/v1/dataevents/key:{key}/rowset
+
+// axios.post(sfmcDataExtensionApiUrl, jsonData, {"headers" : headers})
+//   .then((response) => {
+//       // success
+//       console.log("Successfully loaded sample data into Data Extension!");
+
+//       resolve(
+//       {
+//           status: response.status,
+//           statusText: response.statusText + "\n" + Utils.prettyPrintJson(JSON.stringify(response.data))
+//       });
+//   })
+//   .catch((error) => {
+//       // error
+//     //   let error = "Error loading sample data. POST response from Marketing Cloud:";
     
-    console.log(error);
+//     console.log(error);
      
-  });
+//   });
 // exports.subjectData = async (req, res) => {
   
 //   console.log("mkmk");
