@@ -158,7 +158,7 @@ axios.post(sfmcDataExtensionApiUrl, jsonData, {"headers" : headers})
   })
   .catch((error) => {
       // error
-      let error = "Error loading sample data. POST response from Marketing Cloud:";
+    //   let error = "Error loading sample data. POST response from Marketing Cloud:";
     
     console.log(error);
      
