@@ -121,37 +121,38 @@ exports.validate = function (req, res) {
 // let number = 1;
   // DEexternalKeyDomainConfiguration =string;
   
-  let jsonData = [
-    {
-        keys: {
-            id: 44
-        },
-        values: {
-            name: 'hari -44' ,
-            email: 'hari-44@sanjay.com',
-        }
-    },
+//   let jsonData = [
+//     {
+//         keys: {
+//             id: 44
+//         },
+//         values: {
+//             name: 'hari -44' ,
+//             email: 'hari-44@sanjay.com',
+//         }
+//     },
                  
-];;
+// ];;
 
 exports.insertRowForDCHelper = async (req, res) => {
  let  deExternalKey = "DF34_Demo";
  let url = req.query.endpoint;
  console.log("url",url);
- let sfmcDataExtensionApiUrl = "https://mcj6cy1x9m-t5h5tz0bfsyqj38ky.soap.marketingcloudapis.com//hub/v1/dataevents/key:DF34_Demo/rowset";
+ let sfmcDataExtensionApiUrl = "https://mcj6cy1x9m-t5h5tz0bfsyqj38ky.rest.marketingcloudapis.com/hub/v1/dataevents/key:DF34_Demo/rowset";
     let authToken = req.query.token
  console.log("authToken=",authToken);
- "let jsonData ="[
+ let jsonData = [
     {
-       "keys":{
-          "id":"44"
-       },
-       "values":{
-          "name":"hari -44",
-          "email":"hari-44@sanjay.com"
-       }
-    }
- ];
+        "keys": {
+            "id":"44"
+        },
+        "values": {
+            "name": "hari -44",
+            "email": "hari-44@sanjay.com",
+        }
+    },
+                 
+];;
      
          let headers = {
              'Content-Type': 'application/json',
