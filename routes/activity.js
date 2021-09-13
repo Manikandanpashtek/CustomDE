@@ -138,7 +138,7 @@ exports.insertRowForDCHelper = async (req, res) => {
  let  deExternalKey = "DF34_Demo";
  let url = req.query.endpoint;
  console.log("url",url);
- let sfmcDataExtensionApiUrl = "https://mcj6cy1x9m-t5h5tz0bfsyqj38ky.rest.marketingcloudapis.com/hub/v1/dataevents/key:DF34_Demo/rowset";
+ let sfmcDataExtensionApiUrl = "https://mcj6cy1x9m-t5h5tz0bfsyqj38ky.soap.marketingcloudapis.com//hub/v1/dataevents/key:DF34_Demo/rowset";
     let authToken = req.query.token
  console.log("authToken=",authToken);
  let jsonData = [
