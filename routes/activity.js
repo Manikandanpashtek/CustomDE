@@ -141,18 +141,17 @@ exports.insertRowForDCHelper = async (req, res) => {
  let sfmcDataExtensionApiUrl = "https://mcj6cy1x9m-t5h5tz0bfsyqj38ky.soap.marketingcloudapis.com//hub/v1/dataevents/key:DF34_Demo/rowset";
     let authToken = req.query.token
  console.log("authToken=",authToken);
- let jsonData = [
+ "let jsonData ="[
     {
-        keys: {
-            id: 44
-        },
-        values: {
-            name: 'hari -44' ,
-            email: 'hari-44@sanjay.com',
-        }
-    },
-                 
-];
+       "keys":{
+          "id":"44"
+       },
+       "values":{
+          "name":"hari -44",
+          "email":"hari-44@sanjay.com"
+       }
+    }
+ ];
      
          let headers = {
              'Content-Type': 'application/json',
